@@ -102,7 +102,7 @@ For example:
 #### 7. Determining the starting cell
 From the example above, we can see that the parameter "myord" allows us to choose a starting cell. But how can we now where the real start is? In our tool, you can use ***get_start*** function to get the real start. 
 
-In this function, we go through from 1 to le(le is the total number of cells) as start to get the hmm result. Everytime we run ***get_hmm_ord*** function, we get a likelihood, and then we find the maximum likelihood to determine the real start. The parameter nthread is the number of threads to use, default is 3. The other paramters is the same as ***get_hmm_ord***.
+In this function, we go through from 1 to le(le is the total number of cells) as start to get the hmm result. Everytime we run ***get_hmm_ord*** function, we get a likelihood, and then we find the maximum likelihood to determine the real start. The parameter nthread is the number of threads to use, default is 3. The other parameters is the same as ***get_hmm_ord***.
 
 For example:
 
