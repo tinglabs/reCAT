@@ -1,0 +1,14 @@
+Package: reCAT
+Title: Reconstructing Cell Cycle Pseudo Time-Series via Single-Cell Transcriptome Data
+Version: 1.1.0
+Authors@R: c(person("Zehua", "Liu", email="zehualiuf@hotmail.com", role = c("aut", "cre")),
+    person("Huazhe", "Lou", email = "", role = c("aut", "ctb")),
+    person("Ken", "Xie", email = "", role = c("aut", "ctb")),
+    person("Hao", "Wang", email = "", role = c("aut", "ctb")))
+Maintainer: Ken Xie <kk.xie419@gmail.com>
+Description: reCAT is a modelling framework for unsynchronized single-cell transcriptome data that can reconstruct a high-resolution cell cycle time-series. It is mainly based on traveling salesman problem (TSP), Gaussian mixture model (GMM) and hidden Markov model (HMM). We developed an R based software package which is easy to use. The performance is relatively accurate and stable. Thanks for using!
+Depends: R (>= 3.4.1)
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
