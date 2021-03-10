@@ -102,7 +102,7 @@ highCorFind <- function(clust_num_EM,test_exp,stageIdxSmp,TSPFold = 2, TSPEvalut
   {
     require(mclust)
     dist_mat <- correlation_distance(test_exp)
-    # 10-dim pcoa
+    # 20-dim pcoa
     kn <- 10#dim(test_exp)[1] - 1
     pcoa_mat <- stats::cmdscale(dist_mat, k = kn) 
     scaling <- pcoa_mat#scale_uniform(pcoa_mat)#scale(pcoa_mat)
@@ -110,7 +110,14 @@ highCorFind <- function(clust_num_EM,test_exp,stageIdxSmp,TSPFold = 2, TSPEvalut
     #fit_EM <- kmeans(scaling, clust_num_EM, iter.max = 2500, nstart = 100)
     #EM_result <- fit_EM$cluster
     fit_EM <- Mclust(as.matrix(scaling), G = clust_num_EM, verbose = F)
-    EM_result <- fit_EM$classification
+    # Avoids empty clusters from GMM
+    if(length(unique(fit_EM$classification)!=clust_num_EM)){
+      fit_EM <- kmeans(scaling, clust_num_EM, iter.max = 2500, nstart = 100)
+      EM_result <- fit_EM$cluster
+    }else{
+      EM_result <- fit_EM$classification
+    }
+    
     
   }
   else if (clustMethod == "GMM")
@@ -123,7 +130,7 @@ highCorFind <- function(clust_num_EM,test_exp,stageIdxSmp,TSPFold = 2, TSPEvalut
   {
     require(cluster)
     set.seed(10)
-    pamx = pam(test_exp,clust_num_EM)#G can be a vector，then use BIC to calculate the best components number
+    pamx = pam(test_exp,clust_num_EM)#G can be a vector, then use BIC to calculate the best components number
     EM_result <- pamx$clustering
     table(EM_result)
   }
@@ -167,7 +174,14 @@ highCorFind <- function(clust_num_EM,test_exp,stageIdxSmp,TSPFold = 2, TSPEvalut
   tourLength <- 0
   resultLst <- matrix(0, nrow = (TSPFold*clust_num_EM), ncol = length(EM_result))
   #pause(0.1)
-  
+  #####
+  # assign("dm1", dist_mat, .GlobalEnv)
+  # assign("mr1", EM_result, .GlobalEnv)
+  # assign("rl1", resultLst, .GlobalEnv)
+  # assign("dr1", distance_result, .GlobalEnv)
+  # print(range(distance_result))
+  # print(dim(distance_result))
+  #####
   if (TSPMethod != "force")
   {
     #resultLst <- matrix(0, nrow = (TSPFold*clust_num_EM), ncol = length(EM_result))
